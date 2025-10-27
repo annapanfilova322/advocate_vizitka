@@ -34,7 +34,7 @@ export const siteData = {
       id: 1,
       title: "Сертификат адвоката",
       image: "/certificates/cert1.jpg",
-      drive_link: "https://drive.google.com/file/d/1DDji3Q56VweYsi_nw9vT-_yiQmWIhz4c/view?usp=sharing"
+      drive_link: ""
     },
     {
       id: 2, 
