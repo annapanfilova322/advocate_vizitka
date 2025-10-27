@@ -1,0 +1,20 @@
+{
+  "tests": [
+    {
+      "name": "Get all testimonials",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Create testimonial",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "company": "Test Company",
+        "letterUrl": "https://example.com/test.pdf"
+      },
+      "expectedStatus": 200
+    }
+  ]
+}

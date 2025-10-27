@@ -1,0 +1,21 @@
+{
+  "tests": [
+    {
+      "name": "Get certificates",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Update certificates",
+      "method": "PUT",
+      "path": "/",
+      "body": [
+        {"name": "Cert 1", "url": "https://example.com/1.pdf"},
+        {"name": "Cert 2", "url": "https://example.com/2.pdf"},
+        {"name": "", "url": ""}
+      ],
+      "expectedStatus": 200
+    }
+  ]
+}
