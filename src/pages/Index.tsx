@@ -3,6 +3,7 @@ import Icon from "@/components/ui/icon";
 import { useState, useEffect } from "react";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
 import AdminPanel from "@/components/AdminPanel";
+import { siteData } from "@/data";
 
 const Index = () => {
   const [showContactModal, setShowContactModal] = useState(false);
@@ -22,65 +23,26 @@ const Index = () => {
     }
   ];
 
-  const [testimonials, setTestimonials] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // ИСПОЛЬЗУЕМ ДАННЫЕ ИЗ siteData
+  const [testimonials, setTestimonials] = useState(siteData.testimonials);
+  const [loading, setLoading] = useState(false);
   const [contacts, setContacts] = useState({
     phone: '+7 (999) 123-45-67',
     email: 'lawyer@example.ru',
     address: 'г. Санкт-Петербург'
   });
 
-  const [certificates, setCertificates] = useState([
-    {name: 'Сертификат Сколково', url: ''},
-    {name: 'Сертификат Комплаенс', url: ''},
-    {name: '', url: ''}
-  ]);
+  const [certificates, setCertificates] = useState({
+    skolkovo: siteData.certificates[0]?.drive_link || '',
+    compliance: siteData.certificates[1]?.drive_link || ''
+  });
 
-  const API_URL = 'https://functions.poehali.dev/ade328f9-1341-4721-acd7-6241e3ae8c1a';
-  const CONTACTS_API_URL = 'https://functions.poehali.dev/3882a477-b6be-4f4b-8489-233902ce1866';
-  const CERTIFICATES_API_URL = 'https://functions.poehali.dev/5f47d76d-7bfe-4d3f-b194-55bc0b579844';
+  // УБРАЛИ ВСЕ API_URL
 
   useEffect(() => {
-    fetchTestimonials();
-    fetchContacts();
-    fetchCertificates();
+    // ДАННЫЕ УЖЕ ЗАГРУЖЕНЫ ИЗ siteData
+    setLoading(false);
   }, []);
-
-  const fetchTestimonials = async () => {
-    try {
-      const response = await fetch(API_URL);
-      const data = await response.json();
-      setTestimonials(data.testimonials || []);
-    } catch (error) {
-      console.error('Error fetching testimonials:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const fetchContacts = async () => {
-    try {
-      const response = await fetch(CONTACTS_API_URL);
-      const data = await response.json();
-      if (data.contacts) {
-        setContacts(data.contacts);
-      }
-    } catch (error) {
-      console.error('Error fetching contacts:', error);
-    }
-  };
-
-  const fetchCertificates = async () => {
-    try {
-      const response = await fetch(CERTIFICATES_API_URL);
-      const data = await response.json();
-      if (data.certificates && Array.isArray(data.certificates)) {
-        setCertificates(data.certificates);
-      }
-    } catch (error) {
-      console.error('Error fetching certificates:', error);
-    }
-  };
 
   const handleUpdateTestimonials = (updatedTestimonials: any[]) => {
     setTestimonials(updatedTestimonials);
@@ -90,11 +52,9 @@ const Index = () => {
     setContacts(updatedContacts);
   };
 
-  const handleUpdateCertificates = (updatedCertificates: any[]) => {
+  const handleUpdateCertificates = (updatedCertificates: any) => {
     setCertificates(updatedCertificates);
   };
-
-
 
   return (
     <div className="min-h-screen bg-white">
@@ -185,18 +145,25 @@ const Index = () => {
         <div className="container mx-auto max-w-7xl">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
             <div className="flex flex-col gap-3">
-              {certificates.map((cert, index) => 
-                cert.name && cert.url ? (
-                  <a
-                    key={index}
-                    href={cert.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm font-medium hover:text-mint transition-colors"
-                  >
-                    {cert.name}
-                  </a>
-                ) : null
+              {certificates.skolkovo && (
+                <a
+                  href={certificates.skolkovo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium hover:text-mint transition-colors"
+                >
+                  Сертификат Сколково
+                </a>
+              )}
+              {certificates.compliance && (
+                <a
+                  href={certificates.compliance}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium hover:text-mint transition-colors"
+                >
+                  Сертификат Комплаенс
+                </a>
               )}
             </div>
 
@@ -218,19 +185,14 @@ const Index = () => {
         </div>
       </footer>
 
+      {/* УБРАЛИ НЕНУЖНЫЕ ПАРАМЕТРЫ API */}
       <AdminPanel 
         testimonials={testimonials} 
         onUpdate={handleUpdateTestimonials}
-        apiUrl={API_URL}
-        onRefresh={fetchTestimonials}
         contacts={contacts}
         onUpdateContacts={handleUpdateContacts}
-        contactsApiUrl={CONTACTS_API_URL}
-        onRefreshContacts={fetchContacts}
         certificates={certificates}
         onUpdateCertificates={handleUpdateCertificates}
-        certificatesApiUrl={CERTIFICATES_API_URL}
-        onRefreshCertificates={fetchCertificates}
       />
 
       {showContactModal && (
