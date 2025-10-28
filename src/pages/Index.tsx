@@ -3,7 +3,7 @@ import Icon from "@/components/ui/icon";
 import { useState, useEffect } from "react";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
 import AdminPanel from "@/components/AdminPanel";
-import { siteData } from "@/data";
+import { siteData } from "@/data.js";
 
 const Index = () => {
   const [showContactModal, setShowContactModal] = useState(false);
