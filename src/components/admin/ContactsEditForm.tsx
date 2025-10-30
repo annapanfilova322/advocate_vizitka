@@ -27,7 +27,7 @@ const ContactsEditForm = ({ editedContacts, setEditedContacts, onSave, onCancel 
               type="text"
               value={editedContacts.phone}
               onChange={(e) => setEditedContacts({ ...editedContacts, phone: e.target.value })}
-              placeholder="+7 (999) 123-45-67"
+              placeholder="+7 (999) 222-45-67"
               className="w-full px-4 py-2 border border-slate-300 rounded focus:outline-none focus:border-mint"
             />
           </div>
