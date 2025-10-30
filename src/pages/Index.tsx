@@ -26,8 +26,8 @@ const Index = () => {
   const [testimonials, setTestimonials] = useState(siteData.testimonials);
   const [loading, setLoading] = useState(false);
   const [contacts, setContacts] = useState({
-    phone: '+7 (999) 222-45-67',
-    email: 'lawyer@example.ru',
+    phone: '+7 921 954-77-40',
+    email: '6001166advokat@gmail.com',
     address: 'г. Санкт-Петербург'
   });
 
