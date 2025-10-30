@@ -5,7 +5,6 @@ import {componentTagger} from "pp-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({mode}) => ({
-    base: '/advocate_vizitka/',
     plugins: [
         react(),
         mode === 'development' &&
